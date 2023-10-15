@@ -1,0 +1,42 @@
+1 = On travaille dans un envirennement virtuel
+2 = (pour telecharger le dossier de envirennement) python -m venv env / venv
+3 = pour activer cet envirennement on ecrit sur le terminal les commandes suivantes :
+    (cd = change direction / cd .. = change direction vers l'arrière)
+    cd env / cd venv
+    Scripts/activate
+4 = apres l'activation de l'envirennement on commence a telecharger
+    les packages nécessaires comme :
+    pip / pip3 install djando
+    pip install numpy
+    pip install Pillow ( Pil a une relation avec les images )
+    .......... (plusieurs packages)
+
+Question : diffrence entre Packages et framework ?
+    = Packages contient des ressources indispensable pour le fonctionnement d'un programme (Application,
+        Algorithms, etc...)
+
+        pour calculer a^2 j'ai besoin d'un package qui s'appelle numpy
+
+    = framework : faciliter le travail et le developement dans un envirennement de travail plus
+        simplifiee que dans la tecnologie auquelle ce framework appartient (on installe des packages
+        dans un framewokr)
+
+        JAVA : ils ont developpé un framework nomme JEE et autres nommé Springbot(100% backend)
+        PHP (inventé en premier) : Laravel est framework de php
+        JAVASCRIPT (inventé en premier) : react, Angular, Vues.js, Nuxt.js, Next.js .....
+
+
+Comment ca fonctionne Django (la logique)
+
+!!!!!!!!!! A chaque fois que tu fais des modifications dans les fihciers
+            suivants (settings.py, models.py, urls.py, admin.py),
+            il te faut necessairement faire la commande suivante : python manage.py migrate
+            cette commande permet tout simplement de valider les modifications. !!!!!!!!!!!!!!!!
+
+
+
+
+
+
+
+
