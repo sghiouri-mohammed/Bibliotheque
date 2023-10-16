@@ -34,6 +34,16 @@ Comment ca fonctionne Django (la logique)
             cette commande permet tout simplement de valider les modifications. !!!!!!!!!!!!!!!!
 
 
+!!!!!!!!!!Déposer un projet sur github steps
+La premiere fois :
+    1- git init
+    2- git add .
+    3- git commit -m "message que tu veux"
+    4- git branch -M master
+    5- git remote add origin https://github.com/abdoma-git/Bibliotheque.git
+    6- git push -u origin master
+
+
 
 
 
