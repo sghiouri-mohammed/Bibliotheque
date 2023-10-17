@@ -11,20 +11,21 @@ def dashboard(request):
     return render(request, 'dashboard.html')
 
 def registration(request):
-    message = "Salut je suis un message"
+    message = ""
+
 
     if request.method == "POST":
 
-        first_name = request.POST["fname"]
-        last_name = request.POST["lname"]
+        firstname = request.POST["firstname"] #fname f:first
+        last_name = request.POST["lname"] #lname l:last
         email = request.POST["email"]
         pwd = request.POST["password"]
 
-        etudiant = Etudiant(first_name=first_name, last_name=last_name, email=email, pwd=pwd)
+        etudiant = Etudiant(first_name=firstname, last_name=last_name, email=email, pwd=pwd)
 
         if etudiant :
             message = "Etudiant ajouté avec success"
-            etudiant.save()
+            etudiant.save() #c'est pour enregistrer l'etudiant sur la base de donnees
         else:
             message = "Veuillez ressayer"
 

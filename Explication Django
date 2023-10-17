@@ -35,13 +35,21 @@ Comment ca fonctionne Django (la logique)
 
 
 !!!!!!!!!!Déposer un projet sur github steps
-La premiere fois :
+
+La premiere fois : (sur un nouveau projet)
+
     1- git init
     2- git add .
     3- git commit -m "message que tu veux"
     4- git branch -M master
     5- git remote add origin https://github.com/abdoma-git/Bibliotheque.git
     6- git push -u origin master
+
+Après on fait : (si j'ai deja fait un push dans mon projet)
+    1- git add .
+    2- git commit -m "message que tu veux"
+    3- git push -u origin master
+
 
 
 
