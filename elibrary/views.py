@@ -1,7 +1,19 @@
 from django.shortcuts import render, redirect
 
-from elibrary.models import Etudiant
+from elibrary.models import Etudiant, Livre
 
+
+def page_creation_livre(request):
+
+    if request.method == "POST":
+        a = request.POST["titre"]  # fname f:first
+        b = request.POST["auteur"]  # fname f:first
+        c = request.POST["categorie"]  # fname f:first
+        d = request.POST["nbr_pages"]  # fname f:first
+        livre= Livre(titre=a, auteur=b, categorie=c, nombre_pages=d)
+        livre.save()
+
+    return render(request, 'creer_livre.html')
 
 def afficher_index(request):
     return render(request, 'index.html')

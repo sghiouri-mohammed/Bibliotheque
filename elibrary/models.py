@@ -7,3 +7,15 @@ class Etudiant(models.Model):
     last_name = models.CharField(max_length=20)
     email = models.EmailField()
     pwd = models.CharField(max_length=15)
+
+class Livre(models.Model):
+    id = models.AutoField(primary_key=True)
+    titre = models.CharField(max_length=20)
+    auteur = models.CharField(max_length=15)
+    categorie = models.CharField(max_length=15)
+    nombre_pages = models.IntegerField()
+
+
+
+
+
