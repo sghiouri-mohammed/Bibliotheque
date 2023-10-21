@@ -16,7 +16,12 @@ def page_creation_livre(request):
     return render(request, 'creer_livre.html')
 
 def afficher_index(request):
-    return render(request, 'index.html')
+
+    nom = "abdou"
+    prenom = "mohammed"
+
+    return render(request, 'index.html', context={"variable1":nom, "variable2":prenom})
+
 
 
 def dashboard(request):
@@ -84,5 +89,15 @@ def logout(request):
     return redirect('login')
 
 
+def afficher_livres(request):
+    liste_des_livres = Livre.objects.all() #on a recuperer une liste des livrres qui existent sur la table Livre
+    return render(request, 'liste_livres.html', context={"livres":liste_des_livres})
+
+
+def supprimer_livre(request):
+
+    Livre.delete(id=3)
+
+    redirect('livres')
 
 
