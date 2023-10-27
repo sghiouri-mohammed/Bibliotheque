@@ -12,5 +12,7 @@ urlpatterns = [
     path("logout/", views.logout, name="logout"),
     path("form_livre/", views.page_creation_livre, name="livre"),
     path("livres/", views.afficher_livres, name="livres"),
+    path("Supp_livre/<int:id_livre>", views.supprimer_livre, name="supprimer_livre"),
+    path("Modifier_livre/<int:id_livre>", views.modifier_livre, name="modifier_livre"),
 
 ]

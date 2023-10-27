@@ -94,10 +94,29 @@ def afficher_livres(request):
     return render(request, 'liste_livres.html', context={"livres":liste_des_livres})
 
 
-def supprimer_livre(request):
+def supprimer_livre(request,id_livre):
 
-    Livre.delete(id=3)
+    liste_des_livres = Livre.objects.all()
 
-    redirect('livres')
+    livre_a_supprimer = Livre.objects.get(id=id_livre)#select * from Livre where id=id_livre
+    livre_a_supprimer.delete()
+
+    return render(request, 'liste_livres.html', context={"livres":liste_des_livres})
+
+
+def modifier_livre(request,id_livre):
+
+    livre = Livre.objects.get(id=id_livre)
+
+    if request.method == "POST":
+
+        a = request.POST["titre"]  # fname f:first
+        b = request.POST["auteur"]  # fname f:first
+        c = request.POST["categorie"]  # fname f:first
+        d = request.POST["nbr_pages"]  # fname f:first
+
+
+    return render(request, 'modifier_livre.html', context={"livre":livre})
+
 
 
