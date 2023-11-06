@@ -91,17 +91,20 @@ def logout(request):
 
 def page_creation_livre(request):
 
-    if request.method == "POST":
-        a = request.POST["titre"]
-        b = request.POST["auteur"]
-        c = request.POST["categorie"]
-        d = request.POST["nbr_pages"]
-        livre= Livre(titre=a, auteur=b, categorie=c, nombre_pages=d)
+    if request.method == "POST": # ici on verifi si l'utilisateur a cliquer sur le boutton submit
+
+        titre = request.POST["titre"]
+        auteur = request.POST["auteur"]
+        categorie = request.POST["categorie"]
+        nbr_pages = request.POST["nbr_pages"]
+
+        livre = Livre(titre=titre, auteur=auteur, categorie=categorie, nombre_pages=nbr_pages)
         livre.save()
 
     return render(request, 'creer_livre.html')
 
 def afficher_livres(request):
+
     liste_des_livres = Livre.objects.all() #on a recuperer une liste des livrres qui existent sur la table Livre
     return render(request, 'liste_livres.html', context={"livres":liste_des_livres})
 
@@ -116,17 +119,33 @@ def supprimer_livre(request,id_livre):
     return render(request, 'liste_livres.html', context={"livres":liste_des_livres})
 
 
+def supprimer_etudiant(request, id_etudiant):
+
+    liste_utilisateurs = Etudiant.objects.all()
+
+    etudiant_a_supprimer = Etudiant.objects.get(id=id_etudiant)  # select * from Etudiant where id=id_etudiant
+    etudiant_a_supprimer.delete()
+
+    return render(request, 'liste_utilisateurs.html', context={'etudiants': liste_utilisateurs})
+
+
 def modifier_livre(request,id_livre):
 
     livre = Livre.objects.get(id=id_livre)
 
     if request.method == "POST":
 
-        a = request.POST["titre"]  # fname f:first
-        b = request.POST["auteur"]  # fname f:first
-        c = request.POST["categorie"]  # fname f:first
-        d = request.POST["nbr_pages"]  # fname f:first
+        nouveau_titre = request.POST["titre"]
+        nouveau_auteur = request.POST["auteur"]
+        nouvelle_categ = request.POST["categorie"]
+        nouveau_nbr_page = request.POST["nbr_pages"]
 
+        livre.titre = nouveau_titre
+        livre.auteur = nouveau_auteur
+        livre.categorie = nouvelle_categ
+        livre.nombre_pages = nouveau_nbr_page
+
+        livre.save()# enregistrer les modifications
 
     return render(request, 'modifier_livre.html', context={"livre":livre})
 
@@ -135,6 +154,26 @@ def liste_utilisateurs(request):
     liste_utilisateurs= Etudiant.objects.all()
     return render(request, 'liste_utilisateurs.html', context={'etudiants':liste_utilisateurs})
 
+
+def modifier_etudiant(request, id_etudiant):
+
+    etudiants = Etudiant.objects.all()
+
+    etudiant = Etudiant.objects.get(id=id_etudiant)
+
+    if request.method == "POST":
+
+        nouveau_nom = request.POST["fname"]
+        nouveau_prenom = request.POST["lname"]
+        nouvelle_email = request.POST["email"]
+
+        etudiant.first_name = nouveau_nom
+        etudiant.last_name = nouveau_prenom
+        etudiant.email = nouvelle_email
+
+        etudiant.save()  # enregistrer les modifications
+
+    return render(request, 'modifier_etudiant.html', context={"etudiants": etudiants})
 
 
 
