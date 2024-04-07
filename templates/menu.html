@@ -5,26 +5,30 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <ul class="navbar-nav  mb-2 mb-lg-0">
 
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="{% url 'dashboard' %}">Home</a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="{% url 'livre' %}">Books</a>
+          <a class="nav-link" aria-current="page" href="{% url 'livre' %}">Add Books</a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="#">Reservations</a>
+          <a class="nav-link" aria-current="page" href="{% url 'reserver' %}">Reservations</a>
+        </li>
+
+          <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="{% url 'etudiants' %}">Etudiants</a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="#">About</a>
+          <a class="nav-link" aria-current="page" href="{% url 'aboutme' %}">About</a>
         </li>
 
         <li class="nav-item" style="margin-left: 600px">
-          <a class="nav-link" aria-current="page" href="#"> {{ first_name }} {{ last_name }} </a>
+          <a class="nav-link" aria-current="page" href="#"> {{ first_name }}  {{ last_name }} </a>
         </li>
 
       <li class="nav-item">

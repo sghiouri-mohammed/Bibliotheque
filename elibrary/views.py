@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 
-from elibrary.models import Etudiant, Livre
-
+from elibrary.models import Etudiant, Livre, Reservation
 
 
 def afficher_index(request):
@@ -70,6 +69,7 @@ def login(request):
                 request.session['fname'] = utilisateur.first_name
                 request.session['lname'] = utilisateur.last_name
                 request.session['mail'] = utilisateur.email
+
                 d = 1
 
         if d == 1:
@@ -101,7 +101,7 @@ def page_creation_livre(request):
         livre = Livre(titre=titre, auteur=auteur, categorie=categorie, nombre_pages=nbr_pages)
         livre.save()
 
-    return render(request, 'creer_livre.html')
+    return render(request, 'creer_livre.html', context={"first_name":request.session["fname"],"last_name":request.session["lname"] })
 
 def afficher_livres(request):
 
@@ -151,6 +151,7 @@ def modifier_livre(request,id_livre):
 
 
 def liste_utilisateurs(request):
+    # pour recuperer tous les lignes de la table
     liste_utilisateurs= Etudiant.objects.all()
     return render(request, 'liste_utilisateurs.html', context={'etudiants':liste_utilisateurs})
 
@@ -175,7 +176,45 @@ def modifier_etudiant(request, id_etudiant):
 
     return render(request, 'modifier_etudiant.html', context={"etudiants": etudiants})
 
+def about(request):
 
+    return render(request, 'about.html' ,
+                  context={
+                        "first_name":request.session['fname'],
+                        "last_name": request.session['lname'],
+                        "email":request.session['mail'],
+                  })
+
+
+
+def ajouter_reservation(request):
+
+    liste_des_etudiant = Etudiant.objects.all()
+    liste_des_livres = Livre.objects.all()
+
+    #ici on verifie que l'utilisateur a cliqué sur le boutton submit
+    if (request.method == "POST"):
+
+        #On récupère les valeurs des champs des input (select) choisit par l'utilisateur
+        etudiant= request.POST["etudiant"]
+        livre=request.POST["livre"]
+
+        #On insère la reservation
+        #id_etudiant : c'est le nom de la colonne de la table Reservation
+        #id_livre : c'est le nom de la colonne de la table Reservation
+        reservation = Reservation(id_etudiant=etudiant, id_livre=livre)
+
+        #enregisterer la reservation
+        reservation.save()
+
+    return render(request, 'reserver_livre.html' ,
+                  context={
+                        "etudiants":liste_des_etudiant,
+                        "livres":liste_des_livres,
+                        "first_name":request.session['fname'],
+                        "last_name": request.session['lname'],
+                        "email":request.session['mail'],
+                  })
 
 
 

@@ -15,6 +15,11 @@ class Livre(models.Model):
     categorie = models.CharField(max_length=15)
     nombre_pages = models.IntegerField()
 
+class Reservation(models.Model):
+    id = models.AutoField(primary_key=True)
+    id_etudiant=models.IntegerField()
+    id_livre = models.IntegerField()
+
 
 
 
