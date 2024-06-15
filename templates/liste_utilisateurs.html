@@ -6,17 +6,74 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </head>
+
+<style>
+
+    .tablo{
+        padding:20px;
+        background-color:white;
+        justify-content:center;
+        text-align:center;
+        margin:auto;
+        padding-top:10px;
+    }
+
+    table{
+
+    }
+
+    th{
+        font-weight:bolder !important;
+    }
+
+    td{
+        text-align:left !important;
+    }
+
+    .titre{
+        text-align:center;
+        font-weight:800 !important;
+        border-bottom:7px solid #ffd14b;
+        width:300px;
+        margin:auto;
+        padding-bottom:20px;
+    }
+
+    .bbt{
+        float:right !important;
+        border-radius:0px !important;
+        background-color:#ffd14b;
+        color:black;
+        border: 1px solid #ffd14b;
+
+    }
+
+    .td2{
+        text-align:center !important;
+        justify-content:center !important;
+    }
+
+    footer{
+        margin-top:16%;
+    }
+
+</style>
 <body>
     <header>
         {% include 'menu.html' %}
     </header>
-    <table class="table mt-5 container" style="width: 700px">
+
+    <h2 class="mt-5 titre"> Liste des étudiants </h2>
+    <div class="tablo container mt-5">
+    <a href="" class="btn bbt btn-success my-4"> Ajouter + </a>
+    <table class="table table-bordered">
       <thead>
         <tr>
-          <th scope="col">id</th>
-          <th scope="col">Prenom</th>
+          <th scope="col">#id</th>
+          <th scope="col">Prénom</th>
           <th scope="col">Nom</th>
           <th scope="col">Email</th>
+          <th scope="col">Date d'inscription</th>
           <th scope="col">Actions</th>
         </tr>
       </thead>
@@ -29,9 +86,10 @@
               <td>{{ i.first_name }}</td>
               <td>{{ i.last_name }}</td>
               <td>{{ i.email }}</td>
-              <td>
+              <td>{{ i.date_inscription }}</td>
+              <td class="td2">
                   <a href="{% url 'modifier_etudiant' id_etudiant=i.id %}">
-                      <img width="20" height="20" src="https://img.icons8.com/external-sbts2018-outline-sbts2018/58/external-modify-basic-ui-elements-2.5-sbts2018-outline-sbts2018.png" alt="external-modify-basic-ui-elements-2.5-sbts2018-outline-sbts2018"/>
+                    <img width="20" height="20" src="https://img.icons8.com/external-sbts2018-outline-sbts2018/58/external-modify-basic-ui-elements-2.5-sbts2018-outline-sbts2018.png" alt="external-modify-basic-ui-elements-2.5-sbts2018-outline-sbts2018"/>
                   </a>
 
                   &nbsp; &nbsp;
@@ -48,7 +106,10 @@
 
       </tbody>
 </table>
+    </div>
 
 
+
+{% include 'footer.html' %}
 </body>
 </html>

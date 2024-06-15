@@ -12,26 +12,10 @@
     .container{
         align-items: center;
         margin-top: 12% !important;
-        width:600px !important;
-        text-align:center !important;
-        border:2px solid grey;
-        padding:0px !important;
-    }
-
-    h3{
-        border:2px solid grey;
-        background-color:white;
-        margin:0px !important;
-        padding:20px;
-    }
-
-    .card{
-        border-radius:0px !important;
-
     }
 
     footer{
-        margin-top:20%;
+        margin-top:16%;
     }
 
 </style>
@@ -42,34 +26,32 @@
         {% include 'menu.html' %}
     </header>
 
-    <div class="container justify-content-center">
-        <h3> Profile Utilisateur </h3>
+    <div class="container d-flex justify-content-center">
 
             <div class="card p-3">
 
                 <div class="d-flex align-items-center">
 
                     <div class="image">
-                        <img src="https://www.pngall.com/wp-content/uploads/12/Avatar-Profile-PNG-Image-File.png" class="rounded" width="155" >
-                    </div>
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXSLkED4CNUDg-em-7BVgka5g0sXiC2-qAdQwoeFnC_w&s" class="rounded" width="155" >
+                </div>
 
                 <div class="ml-3 w-100 p-5">
 
-                   <h4 class="mb-0 mt-0"> {{ first_name }} {{ last_name}}</h4>
-                   <span>{{ email }}  </span>
+                   <h4 class="mb-0 mt-0"> {{ etudiant.first_name }} {{  etudiant.last_name}}</h4>
+                   <span>{{  etudiant.email }}  </span>
 
 
                 </div>
 
                 </div>
+
+                <button class="btn btn-success mt-4"> <a class="btn btn-success" href="{% url 'reservations' %}"> Retour </a>  </button>
 
             </div>
 
          </div>
 
-
-
 {% include 'footer.html' %}
-
 </body>
 </html>

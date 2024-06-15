@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
+from collections import Counter
 
 from elibrary.models import Etudiant, Livre, Reservation
-
+from datetime import datetime, date
 
 def afficher_index(request):
 
@@ -15,18 +16,57 @@ def afficher_index(request):
 
 
 
+def best_book(ids): # la liste des id_livres dans la table reservation
+
+    # Utiliser un dictionnaire pour compter les occurrences
+    id_count = {}
+    for id in ids:
+        if id in id_count:
+            id_count[id] += 1
+        else:
+            id_count[id] = 1
+
+    # Trouver l'id avec le maximum d'occurrences
+    max_id = max(id_count, key=id_count.get) # 3
+
+    return max_id
+
+
 def dashboard(request):
 
+    # Get today's date
+    today = date.today()
     nombre_de_utilisateurs = Etudiant.objects.all().count()
-
     nombre_livre= Livre.objects.all().count()
+    # calculer le nombre de lignes de la table reservations
+    nombre_reservations = Reservation.objects.all().count()
+    today_reservations_count = Reservation.objects.filter(date_reservation__date=today).count()
+    today_etudiants_count = Etudiant.objects.filter(date_inscription__date=today).count()
+
+    # Récupérer la liste des id de livres dans les réservations
+    liste_id_livres = Reservation.objects.values_list('id_livre', flat=True)
+
+    # Trouver l'id du livre le plus réservé
+    id_best_livre = best_book(liste_id_livres)
+
+    # Récupérer le livre correspondant à cet id
+    meilleur_livre = Livre.objects.get(id=id_best_livre)
+
+    # Obtenir le titre du meilleur livre
+    nom_livre = meilleur_livre.titre
 
 
     return render(request, 'dashboard.html', context={
+        # pour passer les variables vers les pages HTML
         "first_name":request.session['fname'],
         "last_name": request.session['lname'],
         "nbr_users": nombre_de_utilisateurs,
         "nbr_livre": nombre_livre,
+        "nbr_reser": nombre_reservations,
+        "rsvr_auj" : today_reservations_count,
+        "inscr_auj": today_etudiants_count,
+        "livre":nom_livre,
+
     })
 
 
@@ -109,6 +149,7 @@ def afficher_livres(request):
     return render(request, 'liste_livres.html', context={"livres":liste_des_livres})
 
 
+
 def supprimer_livre(request,id_livre):
 
     liste_des_livres = Livre.objects.all()
@@ -117,6 +158,19 @@ def supprimer_livre(request,id_livre):
     livre_a_supprimer.delete()
 
     return render(request, 'liste_livres.html', context={"livres":liste_des_livres})
+
+
+def supprimer_resrvation(request,id_reservation):
+
+    liste_des_livres = Reservation.objects.all()
+
+    livre_a_supprimer = Reservation.objects.get(id=id_reservation)#select * from Livre where id=id_livre
+
+    livre_a_supprimer.delete()
+
+    redirect('liste_reservation.html')
+
+    return render(request, 'liste_reservation.html', context={"reservations":liste_des_livres})
 
 
 def supprimer_etudiant(request, id_etudiant):
@@ -216,5 +270,41 @@ def ajouter_reservation(request):
                         "email":request.session['mail'],
                   })
 
+
+def afficher_liste_reservations(request):
+
+    liste_des_reservations = Reservation.objects.all()
+
+    return render(request, 'liste_reservation.html',
+                  context={
+                      "reservations": liste_des_reservations,
+                      "first_name": request.session['fname'],
+                      "last_name": request.session['lname'],
+                      "email": request.session['mail'],
+                  })
+
+
+def info_etudiant(request, id_etudiant):
+
+    etudiant = Etudiant.objects.get(id=id_etudiant)
+
+    return render(request, 'info_tudin.html',
+                  context={
+                      "etudiant": etudiant,
+                      "first_name": request.session['fname'],
+                      "last_name": request.session['lname'],
+                  })
+
+
+def info_livre(request, id_livre):
+
+    livre = Livre.objects.get(id=id_livre)
+
+    return render(request, 'info_livre.html',
+                  context={
+                      "livre": livre,
+                      "first_name": request.session['fname'],
+                      "last_name": request.session['lname'],
+                  })
 
 
